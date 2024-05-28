@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  app:
+    image: node:lts # バージョン指定も可能 ex. node:12.16.1
+    container_name: nextExpressTest  # コンテナ名は任意
+    environment:
+            - DEBUG=app:*
+    tty: true
+    # ホスト側のポート：コンテナのポート
+    ports:
+            - '3000:3000'
+    # ホスト側のsrcをコンテナのappにマウント
+    volumes:
+      - ./todolist-study:/app
+    working_dir: "/app"
+    command: sh -c "npm run build && npm start"
+    # 起動後に実行するコマンド
+    # command: npm run dev
